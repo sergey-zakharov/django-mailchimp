@@ -434,6 +434,6 @@ from mailchimp.chimp import Connection
 CONNECTION = Connection(secure=SECURE)
 
 def get_connection(api_key=API_KEY):
-    if not CONNECTION.is_connected:
-        CONNECTION.connect(api_key)
+    #if not CONNECTION.is_connected:
+    CONNECTION.connect(api_key)
     return CONNECTION
