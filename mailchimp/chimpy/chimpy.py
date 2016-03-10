@@ -71,7 +71,7 @@ class Connection(object):
 
 
         # flatten dict variables
-        params = dict([(str(k), v.encode('utf-8') if isinstance(v, unicode) else v) for k,v in flatten(params).items()])
+        params = dict([(str(k), v.encode('utf-8') if isinstance(v, str) else v) for k,v in flatten(params).items()])
         params['output'] = self.output
         params['apikey'] = self._apikey
 
@@ -259,14 +259,14 @@ class Connection(object):
         """
         # enforce the 100 char limit (urlencoded!!!)
         title = options.get('title', options['subject'])
-        if isinstance(title, unicode):
+        if isinstance(title, str):
             title = title.encode('utf-8')
         titlelen = len(urllib.quote_plus(title))
         if titlelen > 99:
             title = title[:-(titlelen - 96)] + '...'
             warn("cropped campaign title to fit the 100 character limit, new title: '%s'" % title, ChimpyWarning)
         subject = options['subject']
-        if isinstance(subject, unicode):
+        if isinstance(subject, str):
             subject = subject.encode('utf-8')
         subjlen = len(urllib.quote_plus(subject))
         if subjlen > 99:
